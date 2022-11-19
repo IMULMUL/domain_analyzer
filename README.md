@@ -1,15 +1,26 @@
-# Domain Analyzer
+# Domain Analyzer v0.8.3
+
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/eldraco/domain_analyzer)
+![example workflow](https://github.com/eldraco/domain_analyzer/actions/workflows/docker-image.yml/badge.svg)
+![example workflow](https://github.com/eldraco/domain_analyzer/actions/workflows/codeql-analysis.yml/badge.svg)
+![Docker Pulls](https://img.shields.io/docker/pulls/verovaleros/domain_analyzer?color=green)
+[![Branch Maintenance](https://img.shields.io/badge/Branch%20Maintained%3F-sometimes-orange.svg)](https://bitbucket.org/lbesson/ansi-colors)
 
 ## What
-Domain analyzer is a security analysis tool which automatically discovers and reports information about the given domain. Its main purpose is to analyze domains in an unattended way.
+Domain analyzer is a security analysis tool that automatically discovers and reports information about a given domain. Its main purpose is to analyze domains in an unattended way.
+It has many crazy features, such as getting more domains from DNS zones, automatic nmap, webcrawler, and world domination mode. Check the features.
+
+If you want nmap to scan more ports and run scripts and to run the crawler on those websites, you need to be root.
 
 ## Example default options
-![Default Options](https://github.com/eldraco/domain_analyzer/raw/master/videos/domain_analyzer-example-default_com.ar.gif)
+
+![domainanalyzer-gif-demo](https://user-images.githubusercontent.com/2458879/152254361-a923d460-660a-4695-9453-9e7d8142b109.gif)
+*See in asciinema at https://asciinema.org/a/466274*
 
 ## How
 Domain analyzer takes a domain name and finds information about it, such as DNS servers, mail servers, IP addresses, mails on Google, SPF information, etc. After all the information is stored and organized it scans the ports of every IP found using nmap and perform several other security checks. After the ports are found, it uses the tool crawler.py from @verovaleros, to spider the complete web page of all the web ports found. This tool has the option to download files and find open folders.
 
-Current version is 0.8 and the main features are:
+The main features are:
 
 - It creates a directory with all the information, including nmap output files.
 - It uses colors to remark important information on the console. 
@@ -101,6 +112,24 @@ Current version is 0.8 and the main features are:
 
 Most of these features can be deactivated.
 
+
+
+## Docker Image
+
+### Docker image
+
+Domain analyzer has now a docker image for the main version, on Python 3, with all dependencies already installed:
+
+```bash
+docker run --rm -ti verovaleros/domain_analyzer:latest /domain_analyzer/domain_analyzer.py -d <domain>
+```
+
+### Docker for Domain Analyzer on Python 2.7
+
+We have created a docker image that can be used to run domain analyzer on Python 2.7, and has all the dependencies already installed.
+
+`docker run --rm -it verovaleros/domain_analyzer:python2.7 /domain_analyzer/domain_analyzer.py -d <domain>`
+
 ## Screenshots
 
 1. Example domain_analyzer.py -d .gov -k 10 -b
@@ -111,22 +140,16 @@ Most of these features can be deactivated.
 Domain analyzer was born on Feb 4th, 2011. You can check the original repository in source forge [here](https://sourceforge.net/projects/domainanalyzer/)
 
 
-## Changelog
+# Changelog
 
 - 0.8
 	We can check for hostnames read from an external file. Thanks to Gustavo Sorondo for the code! (iampuky@gmail.com)
 
-
-## Installation
-Just untar the .tar.gz file and copy the python files to the /usr/bin/ directory. Domain_analyzer needs to be run as root. The crawler can be run as a non-privileged user.
-If you want all the features (web crawler, pdf and colors), which is nice, also copy these files to /usr/bin or /usr/local/bin
-
-- ansistrm.py
-- crawler.py
-- pyText2pdf.py
-
-If you have any issues with the GeoIP database, please download it from its original source [here](http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz). And install it in where your system needs it, usually at /opt/local/share/GeoIP/GeoIP.dat
-
-
 # Requests
 If you have any question, please send us an email! They are in the python files.
+
+## Installation
+
+    git clone https://github.com/eldraco/domain_analyzer.git
+    pip install -r requirements.txt
+
